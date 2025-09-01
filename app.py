@@ -46,6 +46,9 @@ def checkcode():
         if e["used"] and not ALLOW_REUSE: return jsonify({"status":"error","error":"invalid_or_expired"}), 404
         e["used"] = True
         return jsonify({"status": "ok", "code": code, "metadata": e.get("metadata", {})})
+@app.get("/")
+def index():
+    return jsonify({"message": "API running", "endpoints": ["/health", "/addcode", "/checkcode"]})
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "8080"))
